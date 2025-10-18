@@ -1,0 +1,45 @@
+import java.util.*;
+
+/*
+ * public class TreeNode {
+ *   int val = 0;
+ *   TreeNode left = null;
+ *   TreeNode right = null;
+ * }
+ */
+
+public class Solution {
+    /**
+     * 
+     * @param root TreeNode
+     * @return int
+     */
+
+    public int run(TreeNode root) {
+        if (root == null) return 0;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int depth = 1;  // root level
+
+        while (!q.isEmpty()) {
+            int size = q.size(); // number of nodes on this level
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = q.poll();
+
+                // If it's a leaf, we've found the minimum depth
+                if (node.left == null && node.right == null) {
+                    return depth;
+                }
+
+                if (node.left  != null) q.offer(node.left);
+                if (node.right != null) q.offer(node.right);
+            }
+            depth++; // finished one level, go deeper
+        }
+        return depth; // (logically we always return inside the loop for non-empty trees)
+    }
+}
+
+    
